@@ -1,0 +1,94 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #323645;
+}
+.control-label
+{
+   color :white;
+}
+
+.table {
+    color: white;
+    background-color: red !important;
+}
+    .table th,
+    .table td {
+        color: white;
+    }
+
+#navbarColor02 .navbar-nav  {
+    display: flex;
+    justify-content: center;
+    
+    margin-left:800px;
+    margin-right: auto;
+}
+
+
+#navbarColor02 .navbar-nav .nav-item .nav-link{
+    font-size:18px;
+    text-align: center; 
+}
+    #navbarColor02 .navbar-nav .nav-item:not(:last-child) {
+        margin-right: 20px;
+        border-right: 3px solid #fff; 
+        padding-right: 15px;
+    }
+
+.navbar-brand {
+    color:red;
+}
+#navbarColor02 .navbar-nav .nav-item .nav-link:hover {
+    
+    color: red; /* hover */
+}
+.form-group .form-control
+{
+    color:black;
+    font-size:20px;
+}
+a{
+    color:white;
+}
+.viewTable {
+    
+    padding: 10px;
+}
+h1,h3,h4,.txt{
+    color:white;
+}
+.form-group{
+    padding:20px;
+}
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.custom1-margin{
+    margin-top:20px;
+}
+.userSession
+{
+    margin-right:20px;
+}

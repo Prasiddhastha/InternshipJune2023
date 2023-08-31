@@ -1,0 +1,74 @@
+﻿@model StudentWebs.Models.ViewModel.FeeCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Fee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+<h1>Create Fee</h1>
+
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="col-md-4">
+        <img id="mainImagePrv" src="~/images/@Model.ImagePath" alt="Student Image" width="200" height="200" style="border: 4px solid red; margin-top:10px; margin-left:80px; " />
+        <dl class="row mt-5">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.SymbolNo)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.SymbolNo)
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <form asp-action="CreateFee"  enctype="multipart/form-data">
+            <input type="hidden" asp-for="StudentId" />
+
+            <div class="form-group">
+                <label asp-for="Semester">Semester:</label>
+                <select asp-for="Semester" class="form-control" required>
+                    <option value="">Select Semester</option>
+                    <option value="1">First Semester</option>
+                    <option value="2">Second Semester</option>
+                    <option value="3">Third Semester</option>
+                    <option value="4">Fourth Semester</option>
+                    <option value="5">Fifth Semester</option>
+                    <option value="6">Sixth Semester</option>
+                    <option value="7">Seventh Semester</option>
+                    <option value="8">Eighth Semester</option>
+                </select>
+                <span asp-validation-for="Semester" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Amount">Amount:</label>
+                <input asp-for="Amount" class="form-control" required />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 pb-4 ">
+                <button type="submit" class="btn btn-outline-primary" style="width:150px">Create</button>
+                <a asp-controller="Fee" asp-action="Index" class="btn btn-outline-secondary" style="width:150px">
+                    Back to List
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+    </div>

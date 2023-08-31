@@ -1,0 +1,25 @@
+--ADO.NET--
+ADO.Net AtiveX Data Object
+handles Data management
+used for retrieveing, saving, updating, deleting, managing, data within database
+works as bridge between ur application and data base
+
+--ADO.NET DATA PROVIDERS?--
+System.Data.SqlClient->Connect with sql server database
+System.Data.OleDb->Connect with sql server, oracle and Microsoft Jet(Access)
+System.Data.Odbc->Connect with sql server, oracle and Microsoft Database
+System.Data.OracleClient->Connect with Oracle Database
+System.Data.EntityClient->Provides data access for Entity data model application
+
+--Core Components of .Net data providers--
+Connection: The connection component establishes a connection to the data source. 
+
+Command: The command component represents a query or a command to be executed against the data source.
+
+DataReader: The DataReader component provides a fast, forward-only, read-only stream of data from the data source. It is used to retrieve data in a read-only, sequential manner.
+
+DataAdapter: The DataAdapter component acts as a bridge between the dataset and the data source.
+
+DataSet: The DataSet component is an in-memory representation of data retrieved from the data source.
+
+Parameter: The parameter component allows you to pass parameters to queries or commands. 

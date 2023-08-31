@@ -1,0 +1,45 @@
+﻿@model IEnumerable<StudentWebs.Models.Faculty>
+
+@{
+    ViewData["Title"] = "Index";
+    }
+<div class ="container p-3">
+    <div class="row pt-4" style="background-color:#323645;">
+       <div class ="col-6">
+       <h2 class="text-primary">Faculties</h2>
+       </div>
+       <div class ="col-6 text-end ">
+            <a asp-asp-controller="Faculties" asp-action="Create" class="btn btn-outline-primary"><i class="bi bi-plus-square"></i> &nbsp;Create New</a>
+       </div>
+    </div>
+<br/>
+    <div class="row p-4 mx-5 ">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FacultyName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FacultyName)
+            </td>
+            <td>
+
+              <div class="btn-group">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-info">Edit</a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary m1-1">Details</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger m1-1">Delete</a>
+                            </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+</div>

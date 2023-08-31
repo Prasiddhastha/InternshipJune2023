@@ -1,0 +1,55 @@
+﻿@model StudentWebs.Models.ViewModel.Login
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+<div class="container custom-margin">
+    <div class="row p-5" style="margin-left:150px;margin-right:150px;margin-top:250px;">
+        <div class="col-6 offset-3 mt-3 border border-primary rounded">
+            <div class="text-center">
+                <h1 class="text-info">User Login</h1>
+            </div>
+            <h6 class="text-success text-center">@TempData["successMessage"]</h6>
+            <form method="post" asp-action="Login">
+                <div class="form-group">
+                    <label asp-for="UserName"></label>
+                    <input type="text" asp-for="UserName" placeholder="Enter Username" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input id="password" type="password" asp-for="Password" placeholder="Enter password" class="form-control" autocomplete="off" />
+                    <i id="open" class="fa fa-eye float-end" aria-hidden="true" style="margin-top:-38px;margin-right:20px;cursor:pointer;" ></i>
+                    <i id="closed" class="fa fa-eye-slash float-end" aria-hidden="true" style="margin-top:-38px;margin-right:20px;display:none;cursor:pointer;"></i>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+
+                </div>
+                <div class="btn-group mx-5 mt-4">
+                    <input type="submit" class="btn btn-block btn-primary" value="Login" />
+                    <a class="text-light btn btn-success font-weight-bold" asp-action="SignUp" asp-controller="Account">Sign Up</a>
+                </div>
+              @*  <div class="text-center">
+                    <a class="text-primary" asp-action="ForgotPassword">Forgot Password?</a>
+                </div>*@
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function(){
+        $("#open").click(function(){
+            $("#open").hide();
+            $("#closed").show();
+            $("#password").attr("type","text");
+        });
+        $("#closed").click(function () {
+            $("#closed").hide();
+            $("#open").show();
+            $("#password").attr("type", "password");
+        });
+      });
+ </script>

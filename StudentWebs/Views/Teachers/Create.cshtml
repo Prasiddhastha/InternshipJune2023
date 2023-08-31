@@ -1,0 +1,80 @@
+﻿@model StudentWebs.Models.Teacher
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+<h1>Create</h1>
+
+<hr />
+
+<div class="card-body">
+    <form asp-action="Create" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="TeacherName" class="control-label"></label>
+                    <input asp-for="TeacherName" class="form-control" />
+                    <span asp-validation-for="TeacherName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ContactNo" class="control-label"></label>
+                    <input asp-for="ContactNo" class="form-control" />
+                    <span asp-validation-for="ContactNo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="FacultyId" class="control-label"></label>
+                    <select asp-for="FacultyId" class="form-control" asp-items="ViewBag.FacultyId"></select>
+                    <span asp-validation-for="FacultyId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label">Upload Image</label>
+                    <input asp-for="Image" type="file" class="form-control-file" accept=".jpg,.jpeg,.png,.gif"
+                           onchange="document.getElementById('mainImagePrv').src = window.URL.createObjectURL(this.files[0])">
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                    <img id="mainImagePrv" src="" alt="Teacher Image" width="200" height="200" style="border: 1px solid red; margin-top: 20px; margin-left: 10px;" />
+                </div>
+            </div>
+            <div class="col-12 pb-4">
+                <button type="submit" class="btn btn-outline-primary" style="width:150px">Create</button>
+                <a asp-controller="Teachers" asp-action="Index" class="btn btn-outline-secondary" style="width:200px">
+                    Back to List
+                </a>
+            </div>
+        </div>
+        
+    </form>
+</div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript">
+        $(".form-control-file").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".form-control-file").addClass("selected").html(fileName);
+        });
+    </script>
+}

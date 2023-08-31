@@ -1,0 +1,175 @@
+﻿@model StudentWebs.Models.ViewModel.FeeStatusViewModel
+
+@{
+    ViewData["Title"] = "Fee Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+<h1>Fee Status</h1>
+<div class="container">
+<div class="container">
+    <div class="col-md-4">
+        <img src="~/images/@Model.ImagePath" alt="Student Image" width="200" height="200" style="border: 4px solid red; margin-top:10px; margin-left:80px; " />
+        <dl class="row mt-5">
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt class="col-sm-4">
+                @Html.DisplayNameFor(model => model.SymbolNo)
+            </dt>
+            <dd class="col-sm-8">
+                @Html.DisplayFor(model => model.SymbolNo)
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <h3 style="padding:10px;">Fee Structure Table</h3>
+        
+        <table class="table">
+            <thead>
+                <tr style="text-align:center;">
+                    <th>Image</th>
+                    <th>Full Name</th>
+                    <th>Semester</th>
+                    <th>Amount</th>
+                    <th>Payment Status</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var fee in Model.Fees)
+                {
+                    <tr style="text-align:center;">
+                        <td><img src="~/images/@Model.ImagePath" alt="Student Image" width="75" height="75" /></td>
+                        <td>@Model.FirstName @Model.LastName</td>
+                        <td>@fee.Semester</td>
+                        <td>@fee.Amount</td>
+                        <td>
+                            @if (fee.IsPaid)
+                            {
+                                <span style="color: lime;">Paid</span>
+                            }
+                            else
+                            {
+                                <span style="color: #e66767;">Due</span>
+                            }
+                        </td>
+                        <td colspan ="2">
+                            @if (fee.Amount ==0.00m)
+                            {
+                                <button disabled type="button" class="btn btn-success p-3 mx-2 " style="width:100px" data-fee-id="@fee.Id">
+                                    Paid
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-success p-3 mx-2 btn-clear-due" style="width:130px; border-radius:10px; color:black;" data-fee-id="@fee.Id">
+                                   Clear Due
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="clearDueModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Clear Due Amount</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Enter the amount to clear due:</p>
+                <input type="number" step="0.01" min="0" class="form-control" id="amountToClear" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmClearDue">Clear Due</button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.btn-clear-due').click(function () {
+                var feeId = $(this).data('fee-id');
+                var feeAmount =$(this).data('fee-Amount');
+                $('#clearDueModal').modal('show');
+
+                $('#confirmClearDue').off('click').on('click', function () {
+                    var amount = parseFloat($('#amountToClear').val());
+
+                    if (isNaN(amount) || amount <= 0 || amount > feeAmount) {
+                        alert('Please enter a valid amount greater than 0.');
+                        return;
+                    }
+
+                    var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("ClearDue", "Fee")',
+                        data: {
+                            id: feeId,
+                            amount: amount
+                        },
+                        headers: {
+                            'RequestVerificationToken': antiForgeryToken
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                alert(response.message + ' New Due Amount: ' + response.newAmount);
+                                // Update the table row with the new due amount
+                                var row = $('.btn-clear-due[data-fee-id="' + feeId + '"]').closest('tr');
+                                row.find('td:nth-child(4)').text(response.newAmount.toFixed(2));
+                                // Update the table row with new payment status
+                                var paymentStatusCell = row.find('td:nth-child(5)');
+                                if (response.isPaid) {
+                                    paymentStatusCell.html('<span style="color: lime;">Paid</span>');
+                                } else {
+                                    paymentStatusCell.html('<span style="color: #e66767;">Due</span>');
+                                }
+                                // Automatically refresh the page after a short delay (e.g., 1 second)
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 1000); // 1000 milliseconds = 1 second
+                            } else {
+                                alert(response.message);
+                            }
+                        },
+                        error: function (error) {
+                            console.error(error);
+                            alert('An error occurred while clearing due.');
+                        }
+                    });
+
+                    $('#clearDueModal').modal('hide');
+                });
+            });
+        });
+    </script>
+}
+
+              

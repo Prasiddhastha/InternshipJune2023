@@ -1,0 +1,77 @@
+﻿@model StudentWebs.Models.Student
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container">
+<h1>Details</h1>
+
+<div >
+  
+    <hr />
+    <dl class="row p-4">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SymbolNo) 
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SymbolNo) 
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ContactNo) 
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ContactNo) 
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+      
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Faculty)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Faculty.FacultyName)
+        </dd>
+        <dt class="col-sm-2">
+            Uploaded Image
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Model.ImagePath" width="200" height="200" style="border: 4px solid red;" />
+        </dd>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.StudentId" class="btn btn-outline-primary" style="width:150px">Edit</a>
+            <a asp-controller="Students" asp-action="Index" class="btn btn-outline-secondary" style="width:150px">
+                Back to List
+            </a>
+        </div>
+    </dl>
+   
+</div>
+</div>

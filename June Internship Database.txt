@@ -1,0 +1,144 @@
+Select 5-4 "Difference"
+ GO
+ --Creating Table
+Create Table Gamers
+(
+	Id int Identity(1,1),
+	FirstName varchar(20),
+	LastName varchar(20),
+	Player_Role varchar(20),
+	CitizenshipNO int
+)
+GO
+
+--Selecting All from table
+Select * From Gamers
+GO
+
+--Inserting into table 5 values
+Insert Into Gamers values('Prasiddha','Shrestha','IGL',22)
+GO 5
+
+--Selecting All from table
+Select * From Gamers
+GO
+
+--Renaming the column name in table syntax:EXEC sp_rename 'table_name.old_column_name', 'new_column_name', 'COLUMN';
+Exec sp_rename 'Gamers.CitizenshipNO','Age','COLUMN';
+
+--Updating table data 
+Update Gamers 
+Set FirstName = 'Rohan', LastName = 'Shahi', Player_Role = 'Initiator', Age = 23
+Where Id=2
+GO
+Update Gamers 
+Set FirstName = 'Samrat', LastName = 'Shah', Player_Role = 'Support', Age = 23
+Where Id=3
+GO
+Update Gamers 
+Set FirstName = 'Ashim', LastName = 'Pokharel', Player_Role = 'Lurker', Age = 22
+Where Id=4
+GO
+Update Gamers 
+Set FirstName = 'Prishank', LastName = 'K.C', Player_Role = 'Controller', Age = 21
+Where Id=5
+GO
+Insert Into Gamers values('Prasiddha','Shrestha','IGL',22)
+GO
+Update Gamers 
+Set FirstName = 'Necro', LastName = 'Butcher', Player_Role = 'Duelist', Age = 22
+Where Id=6
+GO
+
+--Selecting where firstname start with P
+Select * From Gamers
+Where FirstName Like 'P%' 
+GO
+
+--Selecting where firstname or Lastname Contains P
+Select * From Gamers
+Where FirstName Like '%P%' Or LastName Like '%P%'
+GO
+
+--Selecting From table whose age is 23
+Select * From Gamers
+Where Age = 23
+GO
+
+-- Update the age to 25 if the firstname or lastname contains the letter o
+Update Gamers 
+Set Age = 25
+Where FirstName Like '%o%' or LastName Like '%o%'
+GO
+--Updating Gamer Id 6 Age
+Update Gamers 
+Set FirstName = 'Necro', LastName = 'Butcher', Player_Role = 'Duelist', Age = 22
+Where Id=6
+GO
+/* Write a query to produce the following output
+Age     AgeCount
+----------------
+20         1
+30         5
+*/
+
+Select Age, Count(Age) as AgeCount
+From Gamers
+Group by Age
+Go
+
+-- show only agecount greater than 1
+
+Select Age, Count(Age) as AgeCount
+From Gamers
+Group by Age
+having count(Age)>1
+Go
+
+--Selecting All from table
+Select * From Gamers
+GO
+
+--Adding another colum for email
+Alter Table Gamers
+Add Email Varchar(20) Default 'abc@gmail.com'
+GO
+--Inserting Another data to see default email
+Insert into Gamers (FirstName,LastName,Player_Role,Age) Values('Haribol','Yadav','Sentinel',20)
+GO
+
+--Seleting datas whose email value is null
+SELECT * FROM Gamers
+WHERE LastName is NULL
+GO
+
+--Seleting datas whose email value isnot null
+SELECT * FROM Gamers
+WHERE Email IS NOT NULL
+GO
+
+--Updating value of email
+Update Gamers 
+Set Email =   CONCAT(FirstName,'@gmail.com')
+Where Email is NULL
+Go
+
+Update Gamers
+Set Email=Lower(Email)
+WHERE Id < 7
+Go
+
+--Deleting
+Delete Gamers
+Where Id>7
+GO
+
+Insert into Gamers Values('Prasiddha','Shrestha','IGL',22,'praj@gmail.com')
+
+
+
+
+
+
+
+
